@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 th:text="'The list of students'">inner text này sẽ bị ghi đè</h1>
+<button th:text="'Create'"></button>
+<table>
+    <thead>
+    <th th:text="'ID'"></th>
+    <th th:text="'Name'"></th>
+    <th th:text="'YOB'"></th>
+    <th th:text="'GPA'"></th>
+    <th th:text="'Action'"></th>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${students}"> <!--Với mỗi item là 1 student-->
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.yob}"></td>
+        <td th:text="${item.gpa}"></td>
+        <td>
+            <button th:text="'Edit'"></button>
+            <button th:text="'Delete'"></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
