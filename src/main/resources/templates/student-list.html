@@ -2,28 +2,45 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Students</title>
 </head>
 <body>
-<h1 th:text="'The list of students'">inner text này sẽ bị ghi đè</h1>
-<button th:text="'Create'"></button>
-<table>
+<script th:inline="javascript" th:if="${pmsg} != null">
+    window.addEventListener('load', function () { alert([[${pmsg}]]); });
+</script>
+
+<h1>The list of students</h1>
+
+<div th:if="${pid} != null">
+    <p th:text="'ID: ' + ${pid}"></p>
+    <p th:text="'Name: ' + ${pname}"></p>
+    <p th:text="'Yob: ' + ${pyob}"></p>
+    <p th:text="'Gpa: ' + ${pgpa}"></p>
+</div>
+
+<p><a th:href="@{/student/new}">Add New</a></p>
+
+<table border="1" cellpadding="10" cellspacing="0">
     <thead>
-    <th th:text="'ID'"></th>
-    <th th:text="'Name'"></th>
-    <th th:text="'YOB'"></th>
-    <th th:text="'GPA'"></th>
-    <th th:text="'Action'"></th>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Year of Birth</th>
+        <th>GPA</th>
+        <th>Action</th>
+    </tr>
     </thead>
     <tbody>
-    <tr th:each="item : ${students}"> <!--Với mỗi item là 1 student-->
+    <tr th:each="item : ${students}">
         <td th:text="${item.id}"></td>
         <td th:text="${item.name}"></td>
         <td th:text="${item.yob}"></td>
         <td th:text="${item.gpa}"></td>
         <td>
-            <button th:text="'Edit'"></button>
-            <button th:text="'Delete'"></button>
+            <a th:href="@{'/student/edit/' + ${item.id}}">Edit</a>
+            &nbsp;|&nbsp;
+            <a th:href="@{'/student/delete/' + ${item.id}}"
+               onclick="return confirm('Delete this student?');">Delete</a>
         </td>
     </tr>
     </tbody>
